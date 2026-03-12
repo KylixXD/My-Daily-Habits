@@ -1,10 +1,9 @@
-function Footer() {
+function Rodape() {
     return(
         <footer>
             <small>Módulo 04 - Desenvolvimento Front-end com React - ITEAM</small>
-            <image src={"react.svg"}/>
         </footer>
     )
 }
 
-export default Footer
+export default Rodape

@@ -1,18 +1,44 @@
-
+import Cabecalho from './Components/Cabecalho';
+import Rodape from './Components/Footer';
+import HabitList from './Components/HabitList';
+import SecaoHabitos from './Components/SecaoHabitos';
 
 import './App.css'
-import Footer from './Footer'
-import logo from './assets/react.svg'
+
+const BemVindo = ({nomeUsuario, totalHabitos}) => {
+  const nomeFormatado = nomeUsuario.toUpperCase();
+  const mensagem = totalHabitos > 0
+    ? `Você tem ${totalHabitos} hábitos(s) cadastrado(s).` 
+    : `nenhum hábito cadastrado ainda. Que tal começar?`
+
+    return(
+      <div>
+        <h2>Olá, {nomeFormatado}!</h2>
+        <p>{mensagem}</p>
+        <p>Média diária: {(totalHabitos*30).toFixed(0)} atividades por mês</p>
+      </div>
+    )
+}
 
 function App() {
+  const habits = [
+    { id: 1 , titulo: 'Exercício', meta: 5, ativo: true, diasFeitos: 4, categoria: 'Saúde'},
+    { id: 2 , titulo: 'Mexer no TCC', meta: 30, ativo: true, diasFeitos: 3, categoria: 'Futuro profissional'},
+    { id: 3 , titulo: 'Hidratação', meta: 12, ativo: false, diasFeitos: 2, categoria: 'Saúde'},
+    { id: 4 , titulo: 'Dormi que nem gente', meta: 24, ativo: true, diasFeitos: 6, categoria: 'Saúde'},
+    { id: 5 , titulo: 'Estudar Programação', meta: 30, ativo: true, diasFeitos: 6},
+    { id: 6 , titulo: 'Fazer Atividade React', meta: 1, ativo: true, diasFeitos: 1, categoria: 'Exercicio Programação'},
+  ]
 
   return (
     <>
       <div>
-        <h1>My Daily Habits</h1>
-        <p>Gerencie seus hábitos diários de forma simples e visual.</p>
-        <image src={logo} alt='logo React'/>
-        <Footer/>
+        <Cabecalho titulo="Meu Hábitos Diários" descricao="Construindo uma rotina melhor, um hábito por vez."/>
+        <BemVindo nomeUsuario="Rafael" totalHabitos={3}/>
+        <SecaoHabitos titulo="Meus Hábitos">
+          <HabitList habits={habits}/>
+        </SecaoHabitos>
+        <Rodape/>
       </div>
     </>
   )
