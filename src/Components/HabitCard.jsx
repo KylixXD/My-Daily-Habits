@@ -13,7 +13,6 @@ function HabitCard({titulo, descricao= '', meta, ativo = true, diasFeitos = 0,on
             <p>{mensagemMeta}</p>
             {descricao && <p>{descricao}</p>}
             {/* <small>Categoria: {categoria} {destaque && ' ⭐'}- </small> */}
-            <p>{mensagemMeta}</p>
 
             <span>{ativo ? '✅ Ativo' : '⏸️ Pausado'}</span>
 

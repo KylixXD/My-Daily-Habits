@@ -33,9 +33,9 @@ function HabitList() {
             id: Date.now(),
             titulo: novoTitulo,
             descricao: novaDescricao,
-            meta: 7,
+            meta: novaMeta || 7,
             ativo: true,
-            diasFeitos: 0,
+            diasFeitos: diasFeitos|| 0,
             categoria: novaCategoria || 'Geral',
         }
 
