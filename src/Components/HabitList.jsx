@@ -1,18 +1,47 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import HabitCard from "./HabitCard"
 
 function HabitList() {
-    const [habits,setHabits] = useState([
-        { id: 1, titulo: 'Exercício',  descricao: 'Treino de força',    meta: 5, ativo: true,  diasFeitos: 5 },
-        { id: 2, titulo: 'Leitura',    descricao: 'Livro ou artigo',    meta: 7, ativo: true,  diasFeitos: 3 },
-        { id: 3, titulo: 'Meditação',  descricao: 'Respiração e foco',  meta: 7, ativo: false, diasFeitos: 0 },
-        { id: 4, titulo: 'Hidratação', descricao: 'Beber 2L de água',   meta: 7, ativo: true,  diasFeitos: 6 },
-    ])
+    const [habits,setHabits] = useState(() => {
+        const stored = localStorage.getItem('my-daily-habits')
+
+        // if(!stored) return [
+        //     { id: 1, titulo: 'Exercício',  descricao: 'Treino de força',    meta: 5, ativo: true,  diasFeitos: 5 },
+        //     { id: 2, titulo: 'Leitura',    descricao: 'Livro ou artigo',    meta: 7, ativo: true,  diasFeitos: 3 },
+        //     { id: 3, titulo: 'Meditação',  descricao: 'Respiração e foco',  meta: 7, ativo: false, diasFeitos: 0 },
+        //     { id: 4, titulo: 'Hidratação', descricao: 'Beber 2L de água',   meta: 7, ativo: true,  diasFeitos: 6 },
+        // ]
+
+        try {
+            return JSON.parse(stored)
+        } catch {
+           return [] 
+        }
+    })
+    
 
     const removeHabit = (id) => {
         setHabits(habits.filter(habit => habit.id !== id))
     }
+
+    useEffect(() => {
+        document.title = `My Daily Habits — ${habits.length} hábito(s) `
+        console.log('useEffect rodou')
+    })
+
+    // useEffect(() => {
+    //     console.log('✅ HabitList montou')
+
+    //     return () => {
+    //         console.log('❌ HabitList será desmontado')
+    //     }
+    // }, [])
+
+    useEffect(() => {
+        localStorage.setItem('my-daily-habits', JSON.stringify(habits))
+        // console.log('💾 Hábitos salvos:', habits.length)
+        }, [habits])
 
     const [novoTitulo, setNovoTitulo] = useState('')
     const [novaDescricao, setNovaDescricao] = useState('')
@@ -25,7 +54,7 @@ function HabitList() {
         event.preventDefault()
 
         if(!novoTitulo.trim()){
-            alert('Informe um título para o hábito.')
+            alert('Informe um título para o hábito.')   
             return
         }
         
@@ -41,7 +70,6 @@ function HabitList() {
 
         setHabits([...habits, novohabit]
         )
-
         setNovoTitulo('')
         setNovaDescricao('')
         setNovaMeta('')
@@ -49,12 +77,18 @@ function HabitList() {
         setNovaCategoria('')    
     }
 
+    const limparHistorico = () => {
+        localStorage.removeItem('my-daily-habits')
+        setHabits([
+            { id: 1, titulo: 'Exercício',  descricao: 'Treino de força',    meta: 5, ativo: true,  diasFeitos: 5 },
+            { id: 2, titulo: 'Leitura',    descricao: 'Livro ou artigo',    meta: 7, ativo: true,  diasFeitos: 3 },
+            { id: 3, titulo: 'Meditação',  descricao: 'Respiração e foco',  meta: 7, ativo: false, diasFeitos: 0 },
+            { id: 4, titulo: 'Hidratação', descricao: 'Beber 2L de água',   meta: 7, ativo: true,  diasFeitos: 6 },
+        ])
+    }
+
     if(!habits) return null
 
-
-    if (habits.length === 0) {
-        return <p>Nenhum hábito cadastrado ainda. Que tal começar?</p>
-    }
 
     return(
         <section>
@@ -112,6 +146,8 @@ function HabitList() {
                 </div>
 
                 <button type="submit">Adicionar Hábito</button>
+                
+                <button onClick={limparHistorico}>Limpar Histórico</button>
             </form>
 
             {habits.length === 0 

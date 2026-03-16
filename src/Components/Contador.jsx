@@ -10,6 +10,10 @@ export default function Contador() {
     const zerar = () => setCount(0)
     const aumentarTriplo = () => setCount(count + 3)
 
+    // useEffect(() => {
+    //     setCount(prev => prev + 1)
+    // }, [count])
+
     return(
         <div>
             <p>Você Clicou {count} vezes!</p>
