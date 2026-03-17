@@ -1,5 +1,5 @@
 
-function HabitCard({titulo, descricao= '', meta, ativo = true, diasFeitos = 0,onRemover}) {
+function HabitCard({titulo, descricao= '', meta, ativo = true, diasFeitos = 0, categoria = 'Geral',onRemover}) {
     const metaAtingida = diasFeitos >= meta 
     // const destaque = categoria === 'Saúde'
 
@@ -13,8 +13,10 @@ function HabitCard({titulo, descricao= '', meta, ativo = true, diasFeitos = 0,on
             <p>{mensagemMeta}</p>
             {descricao && <p>{descricao}</p>}
             {/* <small>Categoria: {categoria} {destaque && ' ⭐'}- </small> */}
-
+            
+            <span>{categoria}</span>
             <span>{ativo ? '✅ Ativo' : '⏸️ Pausado'}</span>
+            
 
             {metaAtingida && <p>⭐ Parabéns! Você manteve a sequência essa semana!</p>}
 

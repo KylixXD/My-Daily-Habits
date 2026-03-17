@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef} from "react"
 
 import HabitCard from "./HabitCard"
 
@@ -30,51 +30,67 @@ function HabitList() {
         console.log('useEffect rodou')
     })
 
-    // useEffect(() => {
-    //     console.log('✅ HabitList montou')
-
-    //     return () => {
-    //         console.log('❌ HabitList será desmontado')
-    //     }
-    // }, [])
 
     useEffect(() => {
         localStorage.setItem('my-daily-habits', JSON.stringify(habits))
         // console.log('💾 Hábitos salvos:', habits.length)
         }, [habits])
 
-    const [novoTitulo, setNovoTitulo] = useState('')
-    const [novaDescricao, setNovaDescricao] = useState('')
-    const [novaCategoria, setNovaCategoria] = useState('')
-    const [novaMeta, setNovaMeta] = useState('')
-    const [diasFeitos, setDiasFeitos] = useState('')
+    
+    // const [novoTitulo, setNovoTitulo] = useState('')
+    // const [novaDescricao, setNovaDescricao] = useState('')
+    // const [novaCategoria, setNovaCategoria] = useState('')
+    // const [novaMeta, setNovaMeta] = useState('')
+    // const [diasFeitos, setDiasFeitos] = useState('')
 
+    const [form, setForm] = useState({
+        novoTitulo: '',
+        novaDescricao: '',
+        novaCategoria: '',
+        novaMeta: '',
+        diasFeitos: '',
+    })
+
+    const handleChange = (e) => {
+        const {name, value} = e.target
+        setForm(prev => ({ ...prev, [name]: value}))
+    }
+
+    const tituloInputRef = useRef(null)
+
+
+    // const handleChange = (e) => {
+    //     const {name, value} = e.target
+
+    //     if (name === 'novoTitulo')  setNovoTitulo(value)
+    //     if (name === 'novaDescricao')  setNovaDescricao(value)
+    //     if (name === 'novaMeta')  setNovaMeta(value)
+    //     if (name === 'diasFeitos')  setDiasFeitos(value)
+    //     if (name === 'novaCategoria')  setNovaCategoria(value)
+    // }
 
     const adicionarHabit = (event) => {
         event.preventDefault()
 
-        if(!novoTitulo.trim()){
+        if(!form.novoTitulo.trim()){
             alert('Informe um título para o hábito.')   
             return
         }
         
         const novohabit = {
             id: Date.now(),
-            titulo: novoTitulo,
-            descricao: novaDescricao,
-            meta: novaMeta || 7,
+            titulo: form.novoTitulo,
+            descricao: form.novaDescricao,
+            meta: form.novaMeta || 7,
             ativo: true,
-            diasFeitos: diasFeitos|| 0,
-            categoria: novaCategoria || 'Geral',
+            diasFeitos: form.diasFeitos|| 0,
+            categoria: form.novaCategoria || 'Geral',
         }
 
         setHabits([...habits, novohabit]
         )
-        setNovoTitulo('')
-        setNovaDescricao('')
-        setNovaMeta('')
-        setDiasFeitos('')
-        setNovaCategoria('')    
+        setForm({ novoTitulo: '', novaDescricao: '', novaMeta:'', diasFeitos:'', novaCategoria: '' })
+        tituloInputRef.current?.focus()  
     }
 
     const limparHistorico = () => {
@@ -87,8 +103,9 @@ function HabitList() {
         ])
     }
 
-    if(!habits) return null
+    // setForm({ novoTitulo: '', novaDescricao: '', novaCategoria: '', novaMeta: '',diasFeitos: '' })
 
+    if(!habits) return null
 
     return(
         <section>
@@ -99,8 +116,10 @@ function HabitList() {
                     <label>
                         Título do Hábito*
                         <input type="text" 
-                        value={novoTitulo} 
-                        onChange={(e) => setNovoTitulo(e.target.value)}
+                            name="novoTitulo"
+                            value={form.novoTitulo} 
+                            onChange={handleChange}
+                            ref={tituloInputRef}
                         />
                     </label>
                 </div>
@@ -108,9 +127,10 @@ function HabitList() {
                 <div>
                     <label>
                         Descrição
-                        <input type="text" 
-                        value={novaDescricao} 
-                        onChange={(e) => setNovaDescricao(e.target.value)}
+                        <input type="text"
+                        name="novaDescricao" 
+                        value={form.novaDescricao} 
+                        onChange={handleChange}
                         />
                     </label>
                 </div>
@@ -118,9 +138,10 @@ function HabitList() {
                 <div>
                     <label>
                         Meta
-                        <input type="number" 
-                        value={novaMeta} 
-                        onChange={(e) => setNovaMeta(e.target.value)}
+                        <input type="number"
+                        name="novaMeta"
+                        value={form.novaMeta} 
+                        onChange={handleChange}
                         />
                     </label>
                 </div>
@@ -128,9 +149,10 @@ function HabitList() {
                 <div>
                     <label>
                         Dias Feitos
-                        <input type="number" 
-                        value={diasFeitos} 
-                        onChange={(e) => setDiasFeitos(e.target.value)}
+                        <input type="number"
+                        name="diasFeitos"
+                        value={form.diasFeitos} 
+                        onChange={handleChange}
                         />
                     </label>
                 </div>
@@ -139,8 +161,9 @@ function HabitList() {
                     <label>
                         Categoria
                         <input type="text" 
-                        value={novaCategoria} 
-                        onChange={(e) => setNovaCategoria(e.target.value)}
+                        name="novaCategoria"
+                        value={form.novaCategoria} 
+                        onChange={handleChange}
                         />
                     </label>
                 </div>
