@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from "react"
+import { useEffect, useRef, useState } from "react"
 
 import HabitCard from "./HabitCard"
 
@@ -14,7 +14,8 @@ function HabitList() {
         // ]
 
         try {
-            return JSON.parse(stored)
+            const parsed = JSON.parse(stored)
+            return Array.isArray(parsed) ? parsed : []
         } catch {
            return [] 
         }
@@ -26,9 +27,10 @@ function HabitList() {
     }
 
     useEffect(() => {
-        document.title = `My Daily Habits — ${habits.length} hábito(s) `
-        console.log('useEffect rodou')
-    })
+        document.title = habits.length > 0
+                        ? `My Daily Habits  - ${habits.length} hábitos(s)`
+                        : "My Daily Habits"
+    }, [habits])
 
 
     useEffect(() => {
@@ -54,9 +56,34 @@ function HabitList() {
     const handleChange = (e) => {
         const {name, value} = e.target
         setForm(prev => ({ ...prev, [name]: value}))
+
+        if( name === 'novoTitulo'){
+            if(value.length > 0 && value.length < 3){
+                setErrorTitulo('O título deve ter pelo menos 3 caracteres.')
+            } else {
+                setErrorTitulo('')
+            }
+        }
+
+        if (name === 'novaMeta'){
+            const num  = parseInt(value )
+            // Se o campo estiver vazio, não mostra erro ainda ou limpa
+            if (value === "") {
+                setErrorMeta('');
+                return;
+            }
+            
+            if (num < 1 || num > 7){
+                setErrorMeta('Meta deve ser entre 1 e 7 dias')
+            } else {
+                setErrorMeta('')
+            }
+        }
     }
 
     const tituloInputRef = useRef(null)
+    const [errorTitulo, setErrorTitulo] = useState('')
+    const [errorMeta, setErrorMeta] = useState('')
 
 
     // const handleChange = (e) => {
@@ -76,6 +103,11 @@ function HabitList() {
             alert('Informe um título para o hábito.')   
             return
         }
+
+        if(errorTitulo) {
+            tituloInputRef.current?.focus()
+            return
+        }
         
         const novohabit = {
             id: Date.now(),
@@ -85,7 +117,7 @@ function HabitList() {
             ativo: true,
             diasFeitos: form.diasFeitos|| 0,
             categoria: form.novaCategoria || 'Geral',
-        }
+        };
 
         setHabits([...habits, novohabit]
         )
@@ -122,6 +154,7 @@ function HabitList() {
                             ref={tituloInputRef}
                         />
                     </label>
+                    {errorTitulo && <p style={{ color: 'red', fontSize: '0.8rem' }}>{errorTitulo}</p>}
                 </div>
 
                 <div>
@@ -143,6 +176,7 @@ function HabitList() {
                         value={form.novaMeta} 
                         onChange={handleChange}
                         />
+                        {errorMeta && <p style={{ color: 'red', fontSize: '0.8rem'  }}>{errorMeta}</p>}
                     </label>
                 </div>
 

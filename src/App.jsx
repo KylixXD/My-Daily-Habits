@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import Cabecalho from './Components/Cabecalho';
+import Contador from './Components/Contador';
 import Rodape from './Components/Footer';
 import HabitList from './Components/HabitList';
 import SecaoHabitos from './Components/SecaoHabitos';
-import Contador from './Components/Contador';
 
 import './App.css'
 
