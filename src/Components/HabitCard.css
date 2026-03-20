@@ -1,0 +1,75 @@
+.habit-card {
+  background: #97dfac; /* verde bem claro */
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transition: 0.3s;
+  color: #1f2937; /* TEXTO ESCURO (resolve teu problema) */
+}
+
+
+.habit-card:hover {
+  transform: translateY(-3px);
+}
+
+/* TÍTULO */
+.habit-card h3 {
+  color: #14532d;
+  margin-bottom: 6px;
+}
+
+/* TEXTO */
+.habit-card p {
+  color: #374151;
+  font-size: 14px;
+}
+
+/* CATEGORIA */
+.habit-card small {
+  display: inline-block;
+  background: #166534;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin: 6px 0;
+}
+
+/* STATUS */
+.habit-card span {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+/* BOTÕES */
+.habit-card button {
+  margin-top: 10px;
+  margin-right: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+/* REMOVER */
+.habit-card button:first-of-type {
+  background: #ef4444;
+  color: white;
+}
+
+/* PAUSAR */
+.habit-card button:last-of-type {
+  background: #3b82f6;
+  color: white;
+}
+
+/* LINK */
+.btn-detalhes {
+  color: #16a34a;
+  font-weight: 500;
+  text-decoration: none;
+  margin-right: 6px;
+}

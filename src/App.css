@@ -1,41 +1,153 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* FUNDO GERAL */
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #e2e8f0;
+  font-family: "Inter", sans-serif;
 }
 
-.habit-form {
-  background-color: #ffffff;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
+/* CONTAINER */
+#root {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* TÍTULOS */
+h2 {
   margin-bottom: 16px;
 }
 
-.habit-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
+/* FORM */
+.habit-form {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  margin-bottom: 20px;
 }
 
+/* INPUTS */
 .habit-form input {
   width: 100%;
-  padding: 6px 8px;
-  margin-top: 4px;
-  border-radius: 4px;
-  border: 1px solid #d4d4d8;
-  font-size: 0.9rem;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #fff;
+  transition: 0.2s;
 }
 
+.habit-form input:focus {
+  border-color: #22c55e;
+  outline: none;
+}
+
+/* BOTÃO */
 .habit-form button {
-  margin-top: 8px;
-  padding: 8px 16px;
-  border-radius: 4px;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
-  background-color: #111827;
-  color: #f9fafb;
+  width: 100%;
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  color: #052e16;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
 
+.habit-form button:hover {
+  transform: scale(1.03);
+}
 
+/* LISTA */
+ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 15px;
+}
+
+/* CARD */
+.habit-card {
+  background: rgba(30, 41, 59, 0.85);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  transition: 0.3s;
+}
+
+.habit-card:hover {
+  transform: translateY(-4px);
+}
+
+/* TÍTULO */
+.habit-card h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+/* TEXTO */
+.habit-card p {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* CATEGORIA */
+.habit-card small {
+  display: inline-block;
+  margin: 6px 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #334155;
+  font-size: 12px;
+}
+
+/* STATUS */
+.habit-card span {
+  display: block;
+  margin: 8px 0;
+  font-size: 13px;
+}
+
+/* BOTÕES DO CARD */
+.habit-card button {
+  margin-top: 8px;
+  margin-right: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* REMOVER */
+.habit-card button:first-of-type {
+  background: #ef4444;
+  color: white;
+}
+
+/* TOGGLE */
+.habit-card button:last-of-type {
+  background: #3b82f6;
+  color: white;
+}
+
+/* LINK DETALHES */
+.btn-detalhes {
+  display: inline-block;
+  margin-top: 8px;
+  margin-right: 8px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #22c55e;
+}
+
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  #root {
+    padding: 1rem;
+  }
+}

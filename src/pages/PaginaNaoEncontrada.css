@@ -1,0 +1,24 @@
+.pagina-404 {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.pagina-404 h1 {
+  font-size: 60px;
+  color: #dc2626;
+}
+
+.pagina-404 p {
+  margin: 10px 0 20px;
+  color: #374151;
+}
+
+.pagina-404 a {
+  color: #16a34a;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.pagina-404 a:hover {
+  text-decoration: underline;
+}

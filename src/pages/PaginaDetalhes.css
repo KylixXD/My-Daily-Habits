@@ -1,0 +1,78 @@
+/* CONTAINER */
+.pagina-detalhes {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* BOTÃO VOLTAR */
+.btn-voltar {
+  background: none;
+  border: none;
+  color: #166534;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.btn-voltar:hover {
+  text-decoration: underline;
+}
+
+/* CARD */
+.detalhe-card {
+  background: #f0fdf4;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  color: #1f2937; /* força texto escuro */
+}
+
+/* TÍTULO */
+.detalhe-card h1 {
+  color: #14532d;
+}
+
+.detalhe-card p {
+  color: #374151;
+}
+
+
+
+/* LISTA */
+.detalhe-info {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.detalhe-info li {
+  background: #dcfce7;
+  color: #1f2937;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+/* TEXTO FORTE */
+.detalhe-info strong {
+  color: #14532d;
+}
+
+/* BOTÃO REMOVER */
+.btn-remover {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #ef4444;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-remover:hover {
+  background: #dc2626;
+}

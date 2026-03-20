@@ -1,0 +1,57 @@
+.pagina-inicio {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.pagina-inicio h1 {
+  font-size: 28px;
+  color: #14532d;
+}
+
+.pagina-inicio p {
+  margin: 10px 0 20px;
+  color: #374151;
+}
+
+/* RESUMO */
+.resumo {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.resumo-card {
+  background: #dcfce7;
+  padding: 16px;
+  border-radius: 12px;
+  min-width: 120px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.resumo-card strong {
+  display: block;
+  font-size: 20px;
+  color: #166534;
+}
+
+.resumo-card span {
+  font-size: 12px;
+  color: #374151;
+}
+
+/* BOTÃO PRINCIPAL */
+.btn-primario {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  color: #052e16;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-primario:hover {
+  transform: scale(1.05);
+}

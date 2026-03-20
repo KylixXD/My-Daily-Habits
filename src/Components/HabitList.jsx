@@ -1,42 +1,47 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
+import { useHabits } from '../contexts/HabitsContext'
 import HabitCard from "./HabitCard"
+import { useNavigate } from "react-router-dom"
+import './HabitList.css'
 
 function HabitList() {
-    const [habits,setHabits] = useState(() => {
-        const stored = localStorage.getItem('my-daily-habits')
+    const { habits, adicionarHabit, removerHabit, toggleAtivo} = useHabits()
+    const navigate = useNavigate()
+    // const [habits,setHabits] = useState(() => {
+    //     const stored = localStorage.getItem('my-daily-habits')
 
-        // if(!stored) return [
-        //     { id: 1, titulo: 'Exercício',  descricao: 'Treino de força',    meta: 5, ativo: true,  diasFeitos: 5 },
-        //     { id: 2, titulo: 'Leitura',    descricao: 'Livro ou artigo',    meta: 7, ativo: true,  diasFeitos: 3 },
-        //     { id: 3, titulo: 'Meditação',  descricao: 'Respiração e foco',  meta: 7, ativo: false, diasFeitos: 0 },
-        //     { id: 4, titulo: 'Hidratação', descricao: 'Beber 2L de água',   meta: 7, ativo: true,  diasFeitos: 6 },
-        // ]
+    //     // if(!stored) return [
+    //     //     { id: 1, titulo: 'Exercício',  descricao: 'Treino de força',    meta: 5, ativo: true,  diasFeitos: 5 },
+    //     //     { id: 2, titulo: 'Leitura',    descricao: 'Livro ou artigo',    meta: 7, ativo: true,  diasFeitos: 3 },
+    //     //     { id: 3, titulo: 'Meditação',  descricao: 'Respiração e foco',  meta: 7, ativo: false, diasFeitos: 0 },
+    //     //     { id: 4, titulo: 'Hidratação', descricao: 'Beber 2L de água',   meta: 7, ativo: true,  diasFeitos: 6 },
+    //     // ]
 
-        try {
-            const parsed = JSON.parse(stored)
-            return Array.isArray(parsed) ? parsed : []
-        } catch {
-           return [] 
-        }
-    })
+    //     try {
+    //         const parsed = JSON.parse(stored)
+    //         return Array.isArray(parsed) ? parsed : []
+    //     } catch {
+    //        return [] 
+    //     }
+    // })
     
 
-    const removeHabit = (id) => {
-        setHabits(habits.filter(habit => habit.id !== id))
-    }
+    // const removeHabit = (id) => {
+    //     setHabits(habits.filter(habit => habit.id !== id))
+    // }
 
-    useEffect(() => {
-        document.title = habits.length > 0
-                        ? `My Daily Habits  - ${habits.length} hábitos(s)`
-                        : "My Daily Habits"
-    }, [habits])
+    // useEffect(() => {
+    //     document.title = habits.length > 0
+    //                     ? `My Daily Habits  - ${habits.length} hábitos(s)`
+    //                     : "My Daily Habits"
+    // }, [habits])
 
 
-    useEffect(() => {
-        localStorage.setItem('my-daily-habits', JSON.stringify(habits))
-        // console.log('💾 Hábitos salvos:', habits.length)
-        }, [habits])
+    // useEffect(() => {
+    //     localStorage.setItem('my-daily-habits', JSON.stringify(habits))
+    //     // console.log('💾 Hábitos salvos:', habits.length)
+    //     }, [habits])
 
     
     // const [novoTitulo, setNovoTitulo] = useState('')
@@ -49,9 +54,13 @@ function HabitList() {
         novoTitulo: '',
         novaDescricao: '',
         novaCategoria: '',
-        novaMeta: '',
+        novaMeta: '7',
         diasFeitos: '',
     })
+
+    const [errorTitulo, setErrorTitulo] = useState('')
+    const [errorMeta, setErrorMeta] = useState('')
+    const tituloInputRef = useRef(null)
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -67,7 +76,7 @@ function HabitList() {
 
         if (name === 'novaMeta'){
             const num  = parseInt(value )
-            // Se o campo estiver vazio, não mostra erro ainda ou limpa
+
             if (value === "") {
                 setErrorMeta('');
                 return;
@@ -81,9 +90,8 @@ function HabitList() {
         }
     }
 
-    const tituloInputRef = useRef(null)
-    const [errorTitulo, setErrorTitulo] = useState('')
-    const [errorMeta, setErrorMeta] = useState('')
+    
+    
 
 
     // const handleChange = (e) => {
@@ -96,19 +104,42 @@ function HabitList() {
     //     if (name === 'novaCategoria')  setNovaCategoria(value)
     // }
 
-    const adicionarHabit = (event) => {
+    // const adicionarHabit = (event) => {
+    //     event.preventDefault()
+
+    //     if(!form.novoTitulo.trim()){
+    //         alert('Informe um título para o hábito.')   
+    //         return
+    //     }
+
+    //     if(errorTitulo) {
+    //         tituloInputRef.current?.focus()
+    //         return
+    //     }
+        
+    //     const novohabit = {
+    //         id: Date.now(),
+    //         titulo: form.novoTitulo,
+    //         descricao: form.novaDescricao,
+    //         meta: form.novaMeta || 7,
+    //         ativo: true,
+    //         diasFeitos: form.diasFeitos|| 0,
+    //         categoria: form.novaCategoria || 'Geral',
+    //     };
+
+    //     setHabits([...habits, novohabit]
+    //     )
+    //     setForm({ novoTitulo: '', novaDescricao: '', novaMeta:'', diasFeitos:'', novaCategoria: '' })
+    //     tituloInputRef.current?.focus()  
+    // }
+
+    const handleSubmit = (event) => {
         event.preventDefault()
-
-        if(!form.novoTitulo.trim()){
-            alert('Informe um título para o hábito.')   
-            return
-        }
-
-        if(errorTitulo) {
+        if(!form.novoTitulo.trim() || errorTitulo){
             tituloInputRef.current?.focus()
             return
         }
-        
+
         const novohabit = {
             id: Date.now(),
             titulo: form.novoTitulo,
@@ -117,33 +148,33 @@ function HabitList() {
             ativo: true,
             diasFeitos: form.diasFeitos|| 0,
             categoria: form.novaCategoria || 'Geral',
-        };
-
-        setHabits([...habits, novohabit]
-        )
-        setForm({ novoTitulo: '', novaDescricao: '', novaMeta:'', diasFeitos:'', novaCategoria: '' })
-        tituloInputRef.current?.focus()  
+        }
+        adicionarHabit(novohabit)
+        setForm({ novoTitulo: '', novaDescricao: '', novaMeta:'', diasFeitos:'', novaCategoria: ''})
+        setErrorTitulo('')
+        setErrorMeta('')
+        tituloInputRef.current?.focus()
+        navigate('/habitos')
     }
 
-    const limparHistorico = () => {
-        localStorage.removeItem('my-daily-habits')
-        setHabits([
-            { id: 1, titulo: 'Exercício',  descricao: 'Treino de força',    meta: 5, ativo: true,  diasFeitos: 5 },
-            { id: 2, titulo: 'Leitura',    descricao: 'Livro ou artigo',    meta: 7, ativo: true,  diasFeitos: 3 },
-            { id: 3, titulo: 'Meditação',  descricao: 'Respiração e foco',  meta: 7, ativo: false, diasFeitos: 0 },
-            { id: 4, titulo: 'Hidratação', descricao: 'Beber 2L de água',   meta: 7, ativo: true,  diasFeitos: 6 },
-        ])
-    }
+    // const limparHistorico = () => {
+    //     localStorage.removeItem('my-daily-habits')
+    //     setHabits([
+    //         { id: 1, titulo: 'Exercício',  descricao: 'Treino de força',    meta: 5, ativo: true,  diasFeitos: 5 },
+    //         { id: 2, titulo: 'Leitura',    descricao: 'Livro ou artigo',    meta: 7, ativo: true,  diasFeitos: 3 },
+    //         { id: 3, titulo: 'Meditação',  descricao: 'Respiração e foco',  meta: 7, ativo: false, diasFeitos: 0 },
+    //         { id: 4, titulo: 'Hidratação', descricao: 'Beber 2L de água',   meta: 7, ativo: true,  diasFeitos: 6 },
+    //     ])
+    // }
 
-    // setForm({ novoTitulo: '', novaDescricao: '', novaCategoria: '', novaMeta: '',diasFeitos: '' })
 
     if(!habits) return null
 
     return(
-        <section>
+        <section className="habit-list-container">
             <h2>Hábitos Cadastrados</h2>
 
-            <form onSubmit={adicionarHabit} className="habit-form">
+            <form onSubmit={handleSubmit} className="habit-form">
                 <div>
                     <label>
                         Título do Hábito*
@@ -195,7 +226,7 @@ function HabitList() {
                     <label>
                         Categoria
                         <input type="text" 
-                        name="novaCategoria"
+                        name="novaCategoria"    
                         value={form.novaCategoria} 
                         onChange={handleChange}
                         />
@@ -204,23 +235,25 @@ function HabitList() {
 
                 <button type="submit">Adicionar Hábito</button>
                 
-                <button onClick={limparHistorico}>Limpar Histórico</button>
+                {/* <button onClick={limparHistorico}>Limpar Histórico</button> */}
             </form>
 
             {habits.length === 0 
-                ?<p>Nenhum hábito cadastrado ainda. Que tal começar?</p>
+                ?<p className="empty-message">Nenhum hábito cadastrado ainda. Que tal começar?</p>
                 :<p>Você tem {habits.length} hábito(s) cadastrado(s).</p>}
 
-                <ul>
+                <ul className="habit-list">
                         {habits.map((habit) => (
                             <HabitCard 
                             key={habit.id}
+                            id={habit.id}
                             titulo={habit.titulo}
                             descricao={habit.descricao}
                             meta={habit.meta}
                             ativo={habit.ativo}
                             diasFeitos={habit.diasFeitos}
-                            onRemover={() => removeHabit(habit.id)}
+                            onRemover={() => removerHabit(habit.id)}
+                            onToggle={() => toggleAtivo(habit.id)}
                             />
                         ))}
                 </ul>
@@ -229,3 +262,4 @@ function HabitList() {
 }
 
 export default HabitList
+
