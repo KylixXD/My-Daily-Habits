@@ -32,8 +32,6 @@ export function HabitsProvider({children}) {
         )
     }
 
-    // value={{ habits, adicionarHabit, removerHabit, toggleAtivo }}
-
     return (
         <HabitsContext.Provider value= {{habits, 
             adicionarHabit, 

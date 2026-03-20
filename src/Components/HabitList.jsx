@@ -8,47 +8,6 @@ import './HabitList.css'
 function HabitList() {
     const { habits, adicionarHabit, removerHabit, toggleAtivo} = useHabits()
     const navigate = useNavigate()
-    // const [habits,setHabits] = useState(() => {
-    //     const stored = localStorage.getItem('my-daily-habits')
-
-    //     // if(!stored) return [
-    //     //     { id: 1, titulo: 'Exercício',  descricao: 'Treino de força',    meta: 5, ativo: true,  diasFeitos: 5 },
-    //     //     { id: 2, titulo: 'Leitura',    descricao: 'Livro ou artigo',    meta: 7, ativo: true,  diasFeitos: 3 },
-    //     //     { id: 3, titulo: 'Meditação',  descricao: 'Respiração e foco',  meta: 7, ativo: false, diasFeitos: 0 },
-    //     //     { id: 4, titulo: 'Hidratação', descricao: 'Beber 2L de água',   meta: 7, ativo: true,  diasFeitos: 6 },
-    //     // ]
-
-    //     try {
-    //         const parsed = JSON.parse(stored)
-    //         return Array.isArray(parsed) ? parsed : []
-    //     } catch {
-    //        return [] 
-    //     }
-    // })
-    
-
-    // const removeHabit = (id) => {
-    //     setHabits(habits.filter(habit => habit.id !== id))
-    // }
-
-    // useEffect(() => {
-    //     document.title = habits.length > 0
-    //                     ? `My Daily Habits  - ${habits.length} hábitos(s)`
-    //                     : "My Daily Habits"
-    // }, [habits])
-
-
-    // useEffect(() => {
-    //     localStorage.setItem('my-daily-habits', JSON.stringify(habits))
-    //     // console.log('💾 Hábitos salvos:', habits.length)
-    //     }, [habits])
-
-    
-    // const [novoTitulo, setNovoTitulo] = useState('')
-    // const [novaDescricao, setNovaDescricao] = useState('')
-    // const [novaCategoria, setNovaCategoria] = useState('')
-    // const [novaMeta, setNovaMeta] = useState('')
-    // const [diasFeitos, setDiasFeitos] = useState('')
 
     const [form, setForm] = useState({
         novoTitulo: '',
@@ -89,49 +48,6 @@ function HabitList() {
             }
         }
     }
-
-    
-    
-
-
-    // const handleChange = (e) => {
-    //     const {name, value} = e.target
-
-    //     if (name === 'novoTitulo')  setNovoTitulo(value)
-    //     if (name === 'novaDescricao')  setNovaDescricao(value)
-    //     if (name === 'novaMeta')  setNovaMeta(value)
-    //     if (name === 'diasFeitos')  setDiasFeitos(value)
-    //     if (name === 'novaCategoria')  setNovaCategoria(value)
-    // }
-
-    // const adicionarHabit = (event) => {
-    //     event.preventDefault()
-
-    //     if(!form.novoTitulo.trim()){
-    //         alert('Informe um título para o hábito.')   
-    //         return
-    //     }
-
-    //     if(errorTitulo) {
-    //         tituloInputRef.current?.focus()
-    //         return
-    //     }
-        
-    //     const novohabit = {
-    //         id: Date.now(),
-    //         titulo: form.novoTitulo,
-    //         descricao: form.novaDescricao,
-    //         meta: form.novaMeta || 7,
-    //         ativo: true,
-    //         diasFeitos: form.diasFeitos|| 0,
-    //         categoria: form.novaCategoria || 'Geral',
-    //     };
-
-    //     setHabits([...habits, novohabit]
-    //     )
-    //     setForm({ novoTitulo: '', novaDescricao: '', novaMeta:'', diasFeitos:'', novaCategoria: '' })
-    //     tituloInputRef.current?.focus()  
-    // }
 
     const handleSubmit = (event) => {
         event.preventDefault()

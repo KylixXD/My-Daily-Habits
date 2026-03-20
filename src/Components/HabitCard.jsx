@@ -3,7 +3,6 @@ import './HabitCard.css'
 
 function HabitCard({id,titulo, descricao= '', meta, ativo = true, diasFeitos = 0, categoria = 'Geral',onRemover, onToggle}) {
     const metaAtingida = diasFeitos >= meta 
-    // const destaque = categoria === 'Saúde'
 
     const mensagemMeta = metaAtingida
         ? '🏆 Meta da Semana atingida!'
